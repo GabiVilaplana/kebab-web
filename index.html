@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lucky Doner Kebab</title>
+<meta name="description" content="Lucky Doner Kebab: comida turca halal para llevar. Döner, rollos, pizza turca, hamburguesas y menús. Carta, horario y pedidos por teléfono.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rojo: #c8261c;
+    --rojo-osc: #9e1b13;
+    --amarillo: #f7c51e;
+    --verde: #1f9d55;
+    --crema: #fdf6e6;
+    --crema-2: #f4e6c4;
+    --carbon: #171717;
+    --texto: #3a2d26;
+    --suave: #7a6658;
+    --blanco: #fffaf2;
+    --radio: 14px;
+    --max: 1120px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body {
+    font-family: "DM Sans", system-ui, sans-serif;
+    background: var(--crema);
+    color: var(--texto);
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
+  h1, h2, h3, .display { font-family: "Anton", Impact, sans-serif; font-weight: 400; letter-spacing: .01em; text-transform: uppercase; line-height: 1; color: var(--carbon); }
+  h2 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
+  .eyebrow { font-weight: 700; color: var(--rojo); text-transform: uppercase; letter-spacing: .14em; font-size: .8rem; margin-bottom: .6rem; }
+  section { padding: 80px 0; }
+
+  /* Botones */
+  .btn {
+    display: inline-flex; align-items: center; gap: .55em;
+    padding: .85em 1.4em; border-radius: 999px; border: 2px solid transparent;
+    font-weight: 700; text-decoration: none; font-size: 1rem; cursor: pointer;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-llamar { background: var(--amarillo); color: var(--carbon); }
+  .btn-llamar:hover { background: #ffd84a; }
+  .btn-grande { font-size: clamp(1.3rem, 5vw, 1.8rem); padding: .7em 1.4em; font-family: "Anton", sans-serif; font-weight: 400; letter-spacing: .03em; }
+  .cta-nota { margin-top: .9rem; opacity: .75; font-size: .95rem; }
+  .btn-tel { background: transparent; border-color: currentColor; }
+  .btn svg { width: 1.2em; height: 1.2em; flex: none; }
+
+  /* Cabecera */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--carbon); color: var(--crema);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+  .logo { font-family: "Anton", sans-serif; font-size: 1.5rem; text-decoration: none; text-transform: uppercase; color: var(--crema); white-space: nowrap; }
+  .logo span { color: var(--amarillo); }
+  .nav ul { display: flex; gap: 26px; list-style: none; }
+  .nav ul a { text-decoration: none; font-weight: 500; opacity: .85; }
+  .nav ul a:hover { opacity: 1; color: var(--amarillo); }
+  .nav .btn { padding: .55em 1.1em; font-size: .9rem; }
+  @media (max-width: 760px) { .nav ul { display: none; } }
+
+  /* Hero */
+  .hero {
+    background:
+      radial-gradient(circle at 80% 30%, rgba(200,38,28,.45), transparent 50%),
+      var(--carbon);
+    color: var(--blanco);
+    padding: 80px 0 110px;
+    position: relative; overflow: hidden;
+  }
+  .hero-sub { color: var(--amarillo); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-top: 1rem; }
+  .hero-sub small { color: var(--crema); opacity: .7; font-weight: 500; text-transform: none; letter-spacing: 0; margin-left: .4em; }
+  .halal {
+    display: inline-flex; align-items: center; gap: .4em; margin-left: .5rem;
+    background: var(--verde); color: #fff; padding: .4em .9em; border-radius: 999px; font-weight: 700; font-size: .92rem;
+  }
+  .hero-foto { position: relative; justify-self: center; width: min(420px, 100%); }
+  .hero-foto img {
+    width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 30%;
+    border-radius: 18px; border: 6px solid var(--amarillo);
+    transform: rotate(2deg); box-shadow: 0 30px 60px rgba(0,0,0,.45);
+  }
+  .hero-foto .hero-sello { position: absolute; left: -40px; bottom: -40px; width: 190px; }
+  .hero-foto .hero-sello .display { font-size: 1.6rem; }
+  .hero-foto .hero-sello .precio { font-size: 2.8rem; }
+  .hero-foto .hero-sello small { font-size: .7rem; }
+  @media (max-width: 760px) {
+    .hero-foto { margin-top: 20px; }
+    .hero-foto .hero-sello { left: -8px; bottom: -30px; width: 150px; }
+    .hero-foto .hero-sello .display { font-size: 1.25rem; }
+    .hero-foto .hero-sello .precio { font-size: 2.2rem; }
+  }
+  .hero::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 40px;
+    background: var(--crema);
+    clip-path: polygon(0 100%, 0 40%, 5% 70%, 10% 40%, 15% 70%, 20% 40%, 25% 70%, 30% 40%, 35% 70%, 40% 40%, 45% 70%, 50% 40%, 55% 70%, 60% 40%, 65% 70%, 70% 40%, 75% 70%, 80% 40%, 85% 70%, 90% 40%, 95% 70%, 100% 40%, 100% 100%);
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+  .hero h1 { color: var(--blanco); font-size: clamp(3rem, 10vw, 6.2rem); }
+  .hero h1 em { font-style: normal; color: var(--amarillo); }
+  .hero p.lead { font-size: 1.2rem; margin: 1.2rem 0 2rem; max-width: 34ch; opacity: .95; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.2rem; }
+  .hero-badges .halal { margin-left: 0; }
+  .estado {
+    display: inline-flex; align-items: center; gap: .5em;
+    background: rgba(0,0,0,.22); padding: .4em .9em; border-radius: 999px; font-weight: 500; font-size: .92rem;
+  }
+  .estado i { width: 10px; height: 10px; border-radius: 50%; background: #bbb; }
+  .estado.abierto i { background: #4ade80; box-shadow: 0 0 0 4px rgba(74,222,128,.25); }
+  .estado.cerrado i { background: #fca5a5; }
+  .hero-sello {
+    justify-self: center; width: min(360px, 80vw); aspect-ratio: 1; border-radius: 50%;
+    background: var(--amarillo); color: var(--carbon);
+    display: grid; place-items: center; text-align: center;
+    box-shadow: 0 0 0 8px var(--rojo), 0 20px 40px rgba(0,0,0,.35);
+    transform: rotate(-10deg);
+  }
+  .hero-sello .display { font-size: clamp(2.2rem, 7vw, 3.4rem); color: var(--carbon); }
+  .hero-sello small { display: block; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-top: .4rem; }
+  .hero-sello .precio { font-family: "Anton", sans-serif; font-size: clamp(3rem, 10vw, 5rem); color: var(--rojo-osc); line-height: 1; }
+  @media (max-width: 760px) {
+    .hero-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Carta */
+  .carta-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 30px; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tab {
+    border: 2px solid var(--carbon); background: transparent; color: var(--carbon);
+    padding: .5em 1.1em; border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer;
+  }
+  .tab[aria-selected="true"] { background: var(--carbon); color: var(--crema); }
+  /* Pestañas de la carta: se quedan fijas bajo la cabecera al bajar y se deslizan en horizontal */
+  .tabs-carta {
+    position: sticky; top: 64px; z-index: 10;
+    flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
+    background: var(--crema); margin: 0 -16px 20px; padding: 12px 16px;
+  }
+  .tabs-carta::-webkit-scrollbar { display: none; }
+  .tabs-carta .tab { flex: none; white-space: nowrap; }
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+  .plato {
+    background: var(--blanco); border-radius: var(--radio); padding: 0 18px 18px;
+    border: 1px solid var(--crema-2); overflow: hidden;
+    display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto 1fr; gap: 4px 12px; align-content: start;
+  }
+  /* Ampliar producto al pasar el ratón o al pulsarlo en el móvil */
+  .plato {
+    position: relative; cursor: pointer;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .plato-foto { transition: transform .4s ease; }
+  .plato.activo, .plato:focus-visible {
+    transform: scale(1.06); z-index: 2; outline: none;
+    border-color: var(--amarillo);
+    box-shadow: 0 18px 40px rgba(0,0,0,.18), 0 0 0 3px var(--amarillo);
+  }
+  .plato.activo .plato-foto, .plato:focus-visible .plato-foto { transform: scale(1.12); }
+  @media (hover: hover) {
+    .plato:hover {
+      transform: scale(1.06); z-index: 2;
+      border-color: var(--amarillo);
+      box-shadow: 0 18px 40px rgba(0,0,0,.18), 0 0 0 3px var(--amarillo);
+    }
+    .plato:hover .plato-foto { transform: scale(1.12); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .plato, .plato-foto { transition: none; }
+  }
+  .menu-seccion {
+    grid-column: 1 / -1; font-size: 1.8rem; margin-top: 18px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .menu-seccion:first-child { margin-top: 0; }
+  .menu-seccion::after { content: ""; flex: 1; height: 3px; background: var(--amarillo); border-radius: 3px; }
+  .plato-foto {
+    grid-column: 1 / -1; margin: 0 -18px 12px; width: calc(100% + 36px); max-width: none;
+    aspect-ratio: 16 / 9; object-fit: cover; object-position: center top;
+    background: #2a4fb8;
+  }
+  .plato h3 { font-size: 1.35rem; }
+  .plato .precio { font-family: "Anton", sans-serif; font-size: 1.35rem; color: var(--rojo); }
+  .plato p { grid-column: 1 / -1; color: var(--suave); font-size: .95rem; }
+  .tag { display: inline-block; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; background: var(--amarillo); color: var(--carbon); padding: .15em .6em; border-radius: 6px; margin-left: .4em; vertical-align: middle; font-family: "DM Sans", sans-serif; }
+  .nota { margin-top: 20px; color: var(--suave); font-size: .9rem; }
+
+  /* Banda */
+  .banda { background: var(--carbon); color: var(--crema); padding: 22px 0; overflow: hidden; white-space: nowrap; }
+  .banda-track { display: inline-flex; gap: 40px; animation: desliza 30s linear infinite; font-family: "Anton", sans-serif; font-size: 1.6rem; text-transform: uppercase; }
+  .banda-track span::after { content: "✦"; color: var(--amarillo); margin-left: 40px; }
+  @keyframes desliza { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .banda-track { animation: none; } }
+
+  /* Galería */
+  .galeria { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px; gap: 12px; margin-top: 30px; }
+  .foto {
+    border-radius: var(--radio); overflow: hidden; position: relative;
+    background: repeating-linear-gradient(45deg, var(--crema-2) 0 14px, #f0d9b3 14px 28px);
+    display: grid; place-items: center; color: var(--suave); font-weight: 500; text-align: center; padding: 10px;
+  }
+  .foto img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+  .foto.grande { grid-column: span 2; grid-row: span 2; }
+  .foto.alta { grid-row: span 2; }
+  .foto img.contener { object-fit: contain; background: #2a4fb8; }
+  .foto a { position: absolute; inset: 0; }
+  @media (max-width: 760px) {
+    .galeria { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 150px; }
+  }
+
+  /* Reseñas */
+  .resenas { background: var(--crema-2); }
+  .resenas-grid:empty { display: none; }
+  .resenas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 30px; }
+  .resena { background: var(--blanco); border-radius: var(--radio); padding: 24px; }
+  .resumen-resenas {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px;
+    background: var(--carbon); color: var(--crema); border-radius: var(--radio); padding: 26px 28px; margin-top: 30px;
+  }
+  .resumen-resenas .total { color: var(--amarillo); font-size: clamp(2.6rem, 8vw, 3.6rem); }
+  .btn-oscuro { background: var(--amarillo); color: var(--carbon); }
+  .vista-tabs { margin-bottom: 12px; }
+  .estrellas { color: var(--amarillo); font-size: 1.1rem; letter-spacing: 2px; }
+  .resena blockquote { margin: .7rem 0 1rem; font-size: 1.05rem; }
+  .resena cite { font-style: normal; font-weight: 700; color: var(--carbon); }
+  .resena cite small { font-weight: 400; color: var(--suave); }
+  .resena { display: flex; flex-direction: column; }
+  .resena blockquote { flex: 1; display: -webkit-box; -webkit-line-clamp: 7; line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden; }
+  .resena .autor { display: flex; align-items: center; gap: 10px; }
+  .resena .autor img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex: none; }
+  .resena .autor a { text-decoration: none; }
+  .resena .autor a:hover { text-decoration: underline; }
+  .nota-google { color: var(--amarillo); font-size: 1.15rem; font-weight: 700; letter-spacing: 1px; margin-bottom: .2rem; }
+  .nota-google b { color: var(--crema); font-size: 1.4rem; margin-right: .3rem; letter-spacing: 0; }
+
+  /* Visítanos */
+  .visita-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; margin-top: 30px; }
+  .card { background: var(--blanco); border-radius: var(--radio); padding: 26px; }
+  .card h3 { font-size: 1.5rem; margin-bottom: 12px; }
+  .horario { list-style: none; }
+  .horario li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--crema-2); }
+  .horario li.hoy { font-weight: 700; color: var(--rojo); }
+  .horario .turnos { display: flex; flex-direction: column; align-items: flex-end; font-variant-numeric: tabular-nums; }
+  .dato { margin-top: 20px; }
+  .dato strong { display: block; color: var(--carbon); }
+  .mapa { border-radius: var(--radio); overflow: hidden; min-height: 380px; background: var(--crema-2); }
+  .mapa iframe { width: 100%; height: 100%; min-height: 380px; border: 0; display: block; }
+  @media (max-width: 760px) { .visita-grid { grid-template-columns: 1fr; } }
+
+  /* Pedido */
+  .pedido { background: var(--rojo); color: var(--blanco); text-align: center; }
+  .pedido h2 { color: var(--blanco); }
+  .pedido p { max-width: 46ch; margin: 1rem auto 2rem; font-size: 1.1rem; }
+  .pedido .hero-ctas { justify-content: center; }
+
+  footer { background: var(--carbon); color: var(--crema); padding: 30px 0; font-size: .9rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; opacity: .8; }
+
+  /* Botón flotante de llamar */
+  .llamar-flotante {
+    position: fixed; right: 18px; bottom: 18px; z-index: 60;
+    width: 58px; height: 58px; border-radius: 50%; background: var(--amarillo); color: var(--carbon);
+    border: 3px solid var(--carbon);
+    display: grid; place-items: center; box-shadow: 0 10px 25px rgba(0,0,0,.25);
+  }
+  .llamar-flotante svg { width: 28px; height: 28px; }
+  .barra-llamar { display: none; }
+
+  /* ===================== MÓVIL ===================== */
+  @media (max-width: 760px) {
+    section { padding: 56px 0; }
+    html { scroll-padding-top: 64px; }
+    .nav { height: 56px; }
+    .logo { font-size: 1.3rem; }
+    .tabs-carta { top: 56px; }
+
+    /* Portada */
+    .hero { padding: 36px 0 80px; }
+    .hero-grid { gap: 36px; }
+    .hero h1 { font-size: clamp(3.2rem, 17vw, 4.5rem); }
+    .hero p.lead { font-size: 1.05rem; margin: 1rem 0 1.5rem; }
+    .hero-sub small { display: block; margin: .2rem 0 0; }
+    .hero-ctas .btn { flex: 1 1 100%; justify-content: center; }
+    .hero-foto img { aspect-ratio: 4 / 3; transform: rotate(1deg); }
+
+    /* Carta: lista compacta con la foto a la izquierda */
+    .menu-grid { grid-template-columns: 1fr; gap: 10px; }
+    .menu-seccion { font-size: 1.5rem; margin-top: 14px; }
+    .plato {
+      grid-template-columns: 96px 1fr auto; grid-template-rows: auto 1fr;
+      padding: 0 14px 0 0; gap: 2px 12px; -webkit-tap-highlight-color: transparent;
+    }
+    .plato-foto {
+      grid-column: 1; grid-row: 1 / span 2; margin: 0; width: 96px; height: 100%;
+      min-height: 92px; aspect-ratio: auto;
+    }
+    .plato h3 { grid-column: 2; padding-top: 12px; font-size: 1.15rem; }
+    .plato .precio { grid-column: 3; padding-top: 12px; font-size: 1.15rem; }
+    .plato p { grid-column: 2 / 4; padding-bottom: 12px; font-size: .88rem; line-height: 1.4; }
+    /* Al pulsar: la tarjeta se despliega con la foto en grande */
+    .plato.activo {
+      transform: none; animation: despliega .35s ease;
+      grid-template-columns: 1fr auto; grid-template-rows: auto; padding: 0 16px 16px;
+    }
+    .plato.activo .plato-foto {
+      grid-column: 1 / -1; grid-row: auto; width: calc(100% + 32px); height: auto;
+      margin: 0 -16px 10px; aspect-ratio: 16 / 10; transform: none;
+    }
+    .plato.activo h3, .plato.activo .precio { grid-column: auto; padding-top: 0; font-size: 1.4rem; }
+    .plato.activo p { grid-column: 1 / -1; padding-bottom: 0; font-size: .95rem; }
+
+    /* Resto de secciones */
+    .banda { padding: 14px 0; }
+    .banda-track { font-size: 1.2rem; }
+    .resumen-resenas { padding: 22px 20px; }
+    .resumen-resenas .hero-ctas { width: 100%; }
+    .card { padding: 20px; }
+    .mapa, .mapa iframe { min-height: 300px; }
+    .pedido p { font-size: 1rem; }
+    .btn-grande { width: 100%; justify-content: center; }
+
+    /* Barra fija de llamar abajo (en vez del botón redondo) */
+    .llamar-flotante { display: none; }
+    .barra-llamar {
+      display: flex; align-items: center; justify-content: center; gap: .5em;
+      position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 60;
+      background: var(--amarillo); color: var(--carbon); text-decoration: none;
+      font-family: "Anton", sans-serif; font-size: 1.25rem; text-transform: uppercase; letter-spacing: .03em;
+      padding: 13px; border-radius: 999px; border: 3px solid var(--carbon);
+      box-shadow: 0 10px 25px rgba(0,0,0,.3);
+    }
+    .barra-llamar svg { width: 1.2em; height: 1.2em; }
+    footer { padding-bottom: 100px; }
+  }
+  @keyframes despliega { from { transform: scale(.97); opacity: .7; } to { transform: scale(1); opacity: 1; } }
+  @media (max-width: 380px) {
+    .logo { font-size: 1.1rem; }
+    .nav .btn { padding: .5em .9em; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap nav" aria-label="Principal">
+    <a class="logo" href="#inicio" data-nombre-logo>Lucky <span>Doner Kebab</span></a>
+    <ul>
+      <li><a href="#carta">Carta</a></li>
+      <li><a href="#galeria">El local</a></li>
+      <li><a href="#resenas">Opiniones</a></li>
+      <li><a href="#visitanos">Horario</a></li>
+    </ul>
+    <a class="btn btn-llamar" data-tel href="#">Llamar</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="hero-badges">
+          <div class="estado" id="estado"><i></i><span>Comprobando horario…</span></div>
+          <span class="halal">✓ Halal</span>
+        </div>
+        <h1>Lucky<br><em>Doner</em><br>Kebab</h1>
+        <p class="hero-sub">Comida turca para llevar <small>Also to takeaway</small></p>
+        <p class="lead" data-eslogan>Döner, rollos, pizza turca, hamburguesas y pollo. Para llevar o para tomar en nuestra terraza.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-llamar" data-tel href="#"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg>Llama y pide · <span data-tel-num></span></a>
+          <a class="btn btn-tel" href="#carta">Ver la carta</a>
+        </div>
+        <p class="cta-nota">Haz tu pedido por teléfono y pasa a recogerlo recién hecho.</p>
+      </div>
+      <div class="hero-foto">
+        <img src="fotos/fachada.jpg" alt="Fachada de Lucky Doner Kebab con su terraza">
+        <div class="hero-sello" aria-hidden="true">
+          <div>
+            <div class="display">Kebab<br>menú</div>
+            <div class="precio" data-precio-menu>6,75€</div>
+            <small>con patatas y bebida</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="carta">
+    <div class="wrap">
+      <div class="carta-head">
+        <div>
+          <p class="eyebrow">Nuestra carta</p>
+          <h2>¿Qué te apetece?</h2>
+        </div>
+      </div>
+      <div class="tabs tabs-carta" role="tablist" id="tabs"></div>
+      <div class="menu-grid" id="menu" role="tabpanel"></div>
+      <p class="nota">Los menús incluyen patatas y bebida. Toda nuestra carne es halal. Pregúntanos por alérgenos. · Ver carta original: <a href="fotos/carta-1.jpg" target="_blank" rel="noopener">kebabs y platos</a> · <a href="fotos/carta-2.jpg" target="_blank" rel="noopener">menús y pollo</a></p>
+    </div>
+  </section>
+
+  <div class="banda" aria-hidden="true">
+    <div class="banda-track" id="banda"></div>
+  </div>
+
+  <section id="galeria">
+    <div class="wrap">
+      <p class="eyebrow">El local</p>
+      <h2>Pásate a vernos</h2>
+      <div class="galeria" id="fotos"></div>
+    </div>
+  </section>
+
+  <section class="resenas" id="resenas">
+    <div class="wrap">
+      <p class="eyebrow">Opiniones</p>
+      <h2>Lo que dice el barrio</h2>
+      <div class="resumen-resenas">
+        <div>
+          <div class="nota-google" id="nota-google" hidden></div>
+          <div class="display total" data-total-resenas></div>
+          <span>reseñas en Google Maps</span>
+        </div>
+        <div class="hero-ctas">
+          <a class="btn btn-oscuro" data-google href="#">Leer reseñas</a>
+          <a class="btn btn-tel" data-google href="#">Escribir una reseña</a>
+        </div>
+      </div>
+      <div class="resenas-grid" id="lista-resenas"></div>
+      <p class="nota atribucion" id="atribucion-google" hidden>Reseñas reales de Google Maps, seleccionadas por Google.</p>
+    </div>
+  </section>
+
+  <section id="visitanos">
+    <div class="wrap">
+      <p class="eyebrow">Visítanos</p>
+      <h2>Horario y ubicación</h2>
+      <div class="visita-grid">
+        <div class="card">
+          <h3>Horario</h3>
+          <ul class="horario" id="horario"></ul>
+          <div class="dato"><strong>Dirección</strong><span data-direccion></span></div>
+          <div class="dato"><strong>Teléfono</strong><a data-tel href="#"></a></div>
+        </div>
+        <div>
+          <div class="tabs vista-tabs" role="tablist">
+            <button class="tab" role="tab" data-vista="mapa" aria-selected="true">Mapa</button>
+            <button class="tab" role="tab" data-vista="360" aria-selected="false">Vista 360°</button>
+          </div>
+          <div class="mapa"><iframe id="mapa" title="Mapa de ubicación" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
+          <p class="nota">Arrastra en la vista 360° para mirar alrededor. ¿No carga? <a id="enlace-360" href="#" target="_blank" rel="noopener">Ábrela en Google Street View</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pedido">
+    <div class="wrap">
+      <h2>Llama, pide y recoge</h2>
+      <p>Encarga por teléfono y cuando llegues lo tendrás listo y recién hecho. Sin colas ni esperas.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-llamar btn-grande" data-tel href="#"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg><span data-tel-num></span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span data-nombre>Lucky Doner Kebab</span>
+    <span>© <span id="anio"></span> · Hecho con hambre</span>
+  </div>
+</footer>
+
+<a class="barra-llamar" data-tel href="#">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg>
+  Llama y pide
+</a>
+
+<a class="llamar-flotante" data-tel href="#" aria-label="Llamar para hacer un pedido">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg>
+</a>
+
+<script>
+/* ============================================================
+   EDITA AQUÍ LOS DATOS DEL KEBAB
+   Todo lo de abajo son datos de ejemplo: cámbialos por los reales.
+   ============================================================ */
+const KEBAB = {
+  nombre: "Lucky Doner Kebab",
+  telefono: "632 21 43 81",             // se muestra tal cual
+  direccion: "Avinguda de la Verge dels Desemparats, 3, 03830 Muro d'Alcoi, Alicante",
+  coordenadas: [38.781313, -0.437224],  // para el mapa y la vista 360°
+  totalResenas: "82",                   // se actualiza solo con Google
+  enlaceGoogle: "https://www.google.com/maps/search/?api=1&query=Lucky+Doner+Kebab+Muro+d%27Alcoi",
+  precioMenu: "6,75€",
+
+  // Horario: lista de turnos [abre, cierra] en formato 24h. null = cerrado ese día.
+  // Si cierra pasada la medianoche, pon p. ej. ["19:00", "02:00"].
+  horario: {
+    lunes:     [["12:00", "16:00"], ["19:00", "00:00"]],
+    martes:    [["12:00", "16:00"], ["19:00", "00:00"]],
+    miércoles: [["12:00", "16:00"], ["19:00", "00:00"]],
+    jueves:    [["12:00", "16:00"], ["19:00", "00:00"]],
+    viernes:   [["12:00", "16:00"], ["19:00", "00:00"]],
+    sábado:    [["12:00", "16:00"], ["19:00", "00:00"]],
+    domingo:   [["12:00", "16:00"], ["19:00", "00:00"]],
+  },
+
+  carta: {
+    "Kebab y rollos": [
+      { foto: "kebab-doner", nombre: "Kebab döner", precio: "4,75€", desc: "Pan de pita con carne döner, ensalada y salsa.", tag: "Top" },
+      { foto: "rollo-doner", nombre: "Rollo döner", precio: "5,25€", desc: "Carne döner enrollada en pan fino con ensalada y salsa.", tag: "Top" },
+      { foto: "rollo-mini", nombre: "Rollo mini", precio: "2,50€", desc: "La versión pequeña del rollo, para picar." },
+      { foto: "kebab-vegetal", nombre: "Kebab vegetal", precio: "3,25€", desc: "Pan de pita con ensalada fresca y salsa.", tag: "Veggie" },
+      { foto: "rollo-vegetal", nombre: "Rollo vegetal", precio: "3,75€", desc: "Rollo con ensalada fresca y salsa.", tag: "Veggie" },
+      { foto: "falafel", nombre: "Falafel (rollo o pan)", precio: "4,50€", desc: "Falafel con ensalada y salsa, en rollo o en pan.", tag: "Veggie" },
+    ],
+    "Menús": [
+      { foto: "kebab-menu", nombre: "Kebab menú", precio: "6,75€", desc: "Kebab döner con patatas y bebida.", tag: "Top" },
+      { foto: "rollo-menu", nombre: "Rollo menú", precio: "7,25€", desc: "Rollo döner con patatas y bebida." },
+      { foto: "hamburguesa-menu", nombre: "Hamburguesa menú", precio: "7,00€", desc: "Hamburguesa con patatas y bebida." },
+      { foto: "nuggets-menu", nombre: "Nuggets menú", precio: "5,50€", desc: "Nuggets con patatas y bebida." },
+      { foto: "alitas-menu", nombre: "Alitas menú", precio: "6,75€", desc: "Alitas con patatas y bebida." },
+      { foto: "muslo-menu", nombre: "Muslo menú", precio: "7,00€", desc: "Muslo de pollo con patatas y bebida." },
+    ],
+    "Platos y pizza turca": [
+      { foto: "plato-patatas", nombre: "Plato kebab con patatas", precio: "6,25€", desc: "Carne döner con patatas, ensalada y salsa." },
+      { foto: "plato-arroz", nombre: "Plato kebab con arroz", precio: "6,75€", desc: "Carne döner con arroz, ensalada y salsa." },
+      { foto: "plato-nino", nombre: "Plato niño", precio: "4,50€", desc: "Ración pequeña para los peques." },
+      { foto: "pizza-turca", nombre: "Pizza turca", precio: "4,00€", desc: "Masa fina turca con ensalada y limón." },
+      { foto: "pizza-turca-carne", nombre: "Pizza turca con carne", precio: "5,50€", desc: "Pizza turca enrollada con carne döner." },
+    ],
+    "Hamburguesas y pollo": [
+      { foto: "hamburguesa", nombre: "Hamburguesa", precio: "5,00€", desc: "Con lechuga, tomate y salsa." },
+      { foto: "nuggets", nombre: "6 nuggets", precio: "3,00€", desc: "Seis nuggets de pollo crujientes." },
+      { foto: "nuggets-patatas", nombre: "6 nuggets + patatas", precio: "4,50€", desc: "Seis nuggets con ración de patatas." },
+      { foto: "alitas", nombre: "Alitas", precio: "4,25€", desc: "Alitas de pollo bien doradas." },
+      { foto: "alitas-patatas", nombre: "Alitas + patatas", precio: "5,75€", desc: "Alitas de pollo con ración de patatas." },
+      { foto: "muslo", nombre: "Muslo de pollo", precio: "4,50€", desc: "Muslo de pollo asado y especiado." },
+      { foto: "muslo-patatas", nombre: "Muslo + patatas", precio: "6,00€", desc: "Muslo de pollo con ración de patatas." },
+    ],
+  },
+
+  // Fotos: pon la ruta de tus imágenes (p. ej. "fotos/local.jpg").
+  // Si lo dejas vacío ("") se muestra un hueco de ejemplo.
+  // clase: "grande" (2x2), "alta" (1x2) o nada. contener: true para no recortar la imagen.
+  fotos: [
+    { src: "fotos/fachada.jpg", alt: "Fachada de Lucky Doner Kebab con su terraza", clase: "grande" },
+    { src: "fotos/plato-kebab.png", alt: "Plato kebab con patatas, ensalada y pan", clase: "alta" },
+    { src: "fotos/alitas.png", alt: "Alitas de pollo para llevar", clase: "alta" },
+  ],
+
+  // Reseñas automáticas de Google (Places API). Sin clave, la web funciona igual
+  // y solo muestra el resumen con los botones a Google.
+  googleApiKey: "AIzaSyCCV-6twHVS9oPDV5rfG2MFo0w8wgynsfc", // clave de Google Cloud (proyecto kebab-512118)
+  googlePlaceId: "ChIJF_JfFkGPYQ0Rr99fCQJrR3U", // ID del local en Google
+
+  // Reseñas manuales (solo se usan si no hay clave de Google): reseñas REALES copiadas a mano.
+  // Ejemplo: { texto: "…", autor: "Nombre", fuente: "Google", estrellas: 5 },
+  resenas: [
+  ],
+};
+/* ============================ FIN DE DATOS ============================ */
+
+(function () {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  // Datos generales
+  document.title = KEBAB.nombre;
+  $$("[data-nombre]").forEach((el) => (el.textContent = KEBAB.nombre));
+  const [n1, ...resto] = KEBAB.nombre.split(" ");
+  $("[data-nombre-logo]").innerHTML = `${esc(n1)} <span>${esc(resto.join(" "))}</span>`;
+  $$("[data-tel-num]").forEach((el) => (el.textContent = KEBAB.telefono));
+  $$("[data-tel]").forEach((a) => {
+    a.href = "tel:" + KEBAB.telefono.replace(/\s/g, "");
+    if (!a.textContent.trim() && !a.children.length) a.textContent = KEBAB.telefono; // no pisar iconos
+  });
+  $$("[data-direccion]").forEach((el) => (el.textContent = KEBAB.direccion));
+  $("[data-precio-menu]").textContent = KEBAB.precioMenu;
+  // Mapa y vista 360° (Street View) sin necesidad de clave de API
+  const [lat, lng] = KEBAB.coordenadas;
+  const urlMapa = `https://maps.google.com/maps?q=${lat},${lng}&z=17&output=embed`;
+  const url360 = `https://www.google.com/maps?layer=c&cbll=${lat},${lng}&cbp=12,0,0,0,0&output=svembed`;
+  $("#mapa").src = urlMapa;
+  $("#enlace-360").href = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat},${lng}`;
+  $(".vista-tabs").addEventListener("click", (e) => {
+    const b = e.target.closest(".tab"); if (!b) return;
+    $$(".vista-tabs .tab").forEach((t) => t.setAttribute("aria-selected", t === b));
+    $("#mapa").src = b.dataset.vista === "360" ? url360 : urlMapa;
+  });
+
+  // Reseñas: resumen y enlaces a Google
+  $$("[data-total-resenas]").forEach((el) => (el.textContent = KEBAB.totalResenas));
+  $$("[data-google]").forEach((a) => { a.href = KEBAB.enlaceGoogle; a.target = "_blank"; a.rel = "noopener"; });
+  $("#anio").textContent = new Date().getFullYear();
+
+  // Carta con pestañas
+  const cats = Object.keys(KEBAB.carta);
+  const tabs = $("#tabs");
+  const TODO = "Todo";
+  const tarjeta = (p) => `
+      <article class="plato" tabindex="0">
+        ${p.foto ? `<img class="plato-foto" src="fotos/carta/${esc(p.foto)}.jpg" alt="${esc(p.nombre)}" loading="lazy">` : ""}
+        <h3>${esc(p.nombre)}${p.tag ? `<span class="tag">${esc(p.tag)}</span>` : ""}</h3>
+        <span class="precio">${esc(p.precio)}</span>
+        <p>${esc(p.desc || "")}</p>
+      </article>`;
+  const pintarCarta = (cat) => {
+    $$(".tab", tabs).forEach((b) => b.setAttribute("aria-selected", b.dataset.cat === cat));
+    $("#menu").innerHTML = cat === TODO
+      // En "Todo" se ve la carta entera, con un título por sección
+      ? cats.map((c) => `<h3 class="menu-seccion">${esc(c)}</h3>` + KEBAB.carta[c].map(tarjeta).join("")).join("")
+      : KEBAB.carta[cat].map(tarjeta).join("");
+  };
+  tabs.innerHTML = [TODO, ...cats].map((c) => `<button class="tab" role="tab" data-cat="${esc(c)}">${esc(c)}</button>`).join("");
+  tabs.addEventListener("click", (e) => {
+    const b = e.target.closest(".tab"); if (!b) return;
+    pintarCarta(b.dataset.cat);
+    // Centra la pestaña elegida y, si ya habías bajado, vuelve al inicio de la carta
+    tabs.scrollTo({ left: b.offsetLeft - (tabs.clientWidth - b.offsetWidth) / 2, behavior: "smooth" });
+    const arriba = $("#menu").getBoundingClientRect().top - tabs.offsetHeight - 70;
+    if (arriba < 0) window.scrollTo({ top: window.scrollY + arriba, behavior: "smooth" });
+  });
+  pintarCarta(TODO);
+
+  // Al pulsar un producto (móvil) se amplía; al pulsar otro o fuera, vuelve a su tamaño
+  document.addEventListener("click", (e) => {
+    const plato = e.target.closest(".plato");
+    $$(".plato.activo").forEach((el) => { if (el !== plato) el.classList.remove("activo"); });
+    if (!plato) return;
+    plato.classList.toggle("activo");
+    if (plato.classList.contains("activo")) {
+      setTimeout(() => plato.scrollIntoView({ block: "nearest", behavior: "smooth" }), 50);
+    }
+  });
+
+  // Banda deslizante
+  const palabras = ["Döner kebab", "Comida turca", "Para llevar", "100% halal", "Pizza turca", "Llama y recoge","Also to takeaway"];
+  $("#banda").innerHTML = [...palabras, ...palabras].map((p) => `<span>${p}</span>`).join("");
+
+  // Galería
+  $("#fotos").innerHTML = KEBAB.fotos.map((f) => `
+    <div class="foto${f.clase ? " " + f.clase : ""}">
+      ${f.src ? `<a href="${esc(f.src)}" target="_blank" rel="noopener"><img src="${esc(f.src)}" alt="${esc(f.alt)}" loading="lazy"${f.contener ? ' class="contener"' : ""}></a>` : `<span>📷 ${esc(f.alt)}</span>`}
+    </div>`).join("");
+
+  // Reseñas
+  const estrellas = (n) => { const r = Math.round(n); return "★".repeat(r) + "☆".repeat(5 - r); };
+  const pintarResenas = (lista) => {
+    $("#lista-resenas").innerHTML = lista.map((r) => `
+    <figure class="resena">
+      <div class="estrellas" aria-label="${r.estrellas} de 5 estrellas">${estrellas(r.estrellas)}</div>
+      <blockquote>“${esc(r.texto)}”</blockquote>
+      <figcaption class="autor">
+        ${r.foto ? `<img src="${esc(r.foto)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : ""}
+        <cite>${r.enlace ? `<a href="${esc(r.enlace)}" target="_blank" rel="noopener">${esc(r.autor)}</a>` : esc(r.autor)}
+          <small>· ${esc(r.fuente)}</small></cite>
+      </figcaption>
+    </figure>`).join("");
+  };
+  pintarResenas(KEBAB.resenas);
+
+  // Reseñas automáticas de Google: se piden solo cuando el visitante llega a la sección
+  // (así no se gasta una consulta por cada visita que no baja hasta ahí)
+  const cargarGoogleMaps = (key) => new Promise((ok, ko) => {
+    if (window.google?.maps?.importLibrary) return ok();
+    window.__gmListo = ok;
+    window.gm_authFailure = () => ko(new Error("Clave de Google no válida o sin permisos"));
+    const s = document.createElement("script");
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&v=weekly&loading=async&language=es&callback=__gmListo`;
+    s.async = true; s.onerror = () => ko(new Error("No se pudo cargar Google Maps"));
+    document.head.appendChild(s);
+  });
+  const resenasGoogle = async () => {
+    await cargarGoogleMaps(KEBAB.googleApiKey);
+    const { Place } = await google.maps.importLibrary("places");
+    let id = KEBAB.googlePlaceId;
+    if (!id) {
+      const { places } = await Place.searchByText({
+        textQuery: `${KEBAB.nombre}, ${KEBAB.direccion}`, fields: ["id"], maxResultCount: 1,
+        locationBias: { lat, lng },
+      });
+      if (!places.length) throw new Error("No se encontró el local en Google");
+      id = places[0].id;
+      console.info("ID de Google del local (ponlo en googlePlaceId para ahorrar una consulta):", id);
+    }
+    const lugar = new Place({ id, requestedLanguage: "es" });
+    await lugar.fetchFields({ fields: ["rating", "userRatingCount", "reviews", "googleMapsURI"] });
+
+    if (lugar.userRatingCount) $$("[data-total-resenas]").forEach((el) => (el.textContent = lugar.userRatingCount.toLocaleString("es-ES")));
+    if (lugar.rating) {
+      const nota = $("#nota-google");
+      nota.innerHTML = `<b>${lugar.rating.toLocaleString("es-ES", { minimumFractionDigits: 1 })}</b>${estrellas(lugar.rating)}`;
+      nota.hidden = false;
+    }
+    if (lugar.googleMapsURI) $$("[data-google]").forEach((a) => (a.href = lugar.googleMapsURI));
+    const lista = (lugar.reviews || []).filter((r) => r.text).map((r) => ({
+      texto: r.text, estrellas: r.rating || 5,
+      autor: r.authorAttribution?.displayName || "Cliente de Google",
+      enlace: r.authorAttribution?.uri, foto: r.authorAttribution?.photoURI,
+      fuente: r.relativePublishTimeDescription || "Google",
+    }));
+    if (lista.length) { pintarResenas(lista); $("#atribucion-google").hidden = false; }
+  };
+  if (KEBAB.googleApiKey) {
+    const seccion = $("#resenas");
+    const obs = new IntersectionObserver((entradas) => {
+      if (!entradas.some((e) => e.isIntersecting)) return;
+      obs.disconnect();
+      resenasGoogle().catch((err) => console.warn("Reseñas de Google:", err.message));
+    }, { rootMargin: "400px" });
+    obs.observe(seccion);
+  }
+
+  // Horario + abierto/cerrado
+  const dias = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+  const ahora = new Date();
+  const hoy = dias[ahora.getDay()];
+  const aMin = (h) => { const [a, b] = h.split(":").map(Number); return a * 60 + b; };
+  const may = (t) => t[0].toUpperCase() + t.slice(1);
+  const turnosTexto = (t) => (t && t.length ? t.map(([a, b]) => `<span>${a} – ${b}</span>`).join("") : "<span>Cerrado</span>");
+
+  // Agrupa días seguidos con el mismo horario ("Lunes – Viernes") para que quepa bien en el móvil
+  const grupos = [];
+  Object.entries(KEBAB.horario).forEach(([d, t]) => {
+    const ult = grupos[grupos.length - 1];
+    if (ult && JSON.stringify(ult.t) === JSON.stringify(t)) ult.dias.push(d);
+    else grupos.push({ dias: [d], t });
+  });
+  $("#horario").innerHTML = grupos.map((g) => {
+    const etiqueta = g.dias.length === 7 ? "Todos los días"
+      : g.dias.length === 1 ? may(g.dias[0]) : `${may(g.dias[0])} – ${may(g.dias[g.dias.length - 1])}`;
+    return `<li class="${g.dias.includes(hoy) ? "hoy" : ""}"><span>${etiqueta}</span><span class="turnos">${turnosTexto(g.t)}</span></li>`;
+  }).join("");
+
+  // ¿Abierto ahora?
+  const min = ahora.getHours() * 60 + ahora.getMinutes();
+  const rango = ([a, b]) => { const ab = aMin(a); let ci = aMin(b); if (ci <= ab) ci += 1440; return [ab, ci]; };
+  const ayer = dias[(ahora.getDay() + 6) % 7];
+  const turnoAbierto =
+    (KEBAB.horario[hoy] || []).find((t) => { const [ab, ci] = rango(t); return min >= ab && min < ci; }) ||
+    (KEBAB.horario[ayer] || []).find((t) => { const [ab, ci] = rango(t); return min + 1440 >= ab && min + 1440 < ci; });
+  const estado = $("#estado");
+  estado.classList.add(turnoAbierto ? "abierto" : "cerrado");
+  let texto;
+  if (turnoAbierto) {
+    texto = `Abierto · cierra a las ${turnoAbierto[1] === "00:00" ? "0:00" : turnoAbierto[1]}`;
+  } else {
+    const siguiente = (KEBAB.horario[hoy] || []).find(([a]) => aMin(a) > min);
+    const manana = (KEBAB.horario[dias[(ahora.getDay() + 1) % 7]] || [])[0];
+    texto = siguiente ? `Cerrado · abrimos a las ${siguiente[0]}`
+      : manana ? `Cerrado · abrimos mañana a las ${manana[0]}` : "Cerrado ahora";
+  }
+  estado.querySelector("span").textContent = texto;
+})();
+</script>
+</body>
+</html>
